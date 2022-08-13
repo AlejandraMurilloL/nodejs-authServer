@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const { dbConnection } = require('./db/config');
 require('dotenv').config();
@@ -23,6 +24,9 @@ app.use( express.json() );
 // Rutas
 app.use( '/api/auth', require('./routes/auth') );
 
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'))
+});
 
 app.listen( process.env.PORT, () => {
     console.log(`Servidor corriendo en puerto ${ process.env.PORT }`);
